@@ -9,3 +9,7 @@ WHY: The template uses create-react-app under the hood to set up the development
 
 3) Remove CorsMiddleware.cs
 WHY: When attempting to remove the SpaProxy, I began to get CORS errors when running locally. This is to be expected - the reason the SpaProxy exists is to unify calls from the React App server and the .NET Core API, they run on different ports and so naturally generate a CORS error. What is curious is that attempting to follow official Microsoft documentation regarding enabling CORS request/responses did not work, and the only solution I found that worked was a custom middlewar solution. I would prefer to use the built-in MS functionality for CORS instead of something custom, but to figure this out may require digging into the .NET Core middleware and understanding what in the code may be causing the issue. Until then, CorsMiddleware.cs will allow me to develop as I would like and focus on other training exercises.
+
+4) Remove axios call from component
+WHY: While having a call to axios in the component works fine for a basic example, ultimately I want to separate concerns and create a separate data access layer in the frontend. This has a number of positive effects, among those being able to treat components as purely view-and-interaction points and encouraging flexibility in testing approaches - in this case axios would need to be mocked out or handled through integration and E2E level testing, which may be desireable but I appreciate being able to write straightforward unit tests for the bulk of logic.
+
