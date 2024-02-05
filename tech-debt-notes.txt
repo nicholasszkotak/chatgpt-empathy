@@ -1,0 +1,11 @@
+Tech Debt Refactoring Notes
+---
+
+1) Complete removal of SpaProxy
+WHY: I did some work to remove the templated ASP.NET SPA proxy, but it is not complete. There is still some fragments of functionality lingering, for example an exception being thrown on startup due to launchSettings.json which, when removed, causes the ports not to be assigned correctly. Ideally I want to remove the templating both to declutter the solution as well as to understand better the magic under the hood.
+
+2) Eject web app
+WHY: The template uses create-react-app under the hood to set up the development server. This is fine but led to some confusion as to how certain pieces worked together. This is particulary true of setupProxy.js, which is part of the middleware setup for Webpack but which is not editable without doing the full eject. Not only will doing the eject allow me to distill the app into its simplest parts, but will also be a useful exercise for practicing the intricacies of setting up Webpack.
+
+3) Remove CorsMiddleware.cs
+WHY: When attempting to remove the SpaProxy, I began to get CORS errors when running locally. This is to be expected - the reason the SpaProxy exists is to unify calls from the React App server and the .NET Core API, they run on different ports and so naturally generate a CORS error. What is curious is that attempting to follow official Microsoft documentation regarding enabling CORS request/responses did not work, and the only solution I found that worked was a custom middlewar solution. I would prefer to use the built-in MS functionality for CORS instead of something custom, but to figure this out may require digging into the .NET Core middleware and understanding what in the code may be causing the issue. Until then, CorsMiddleware.cs will allow me to develop as I would like and focus on other training exercises.
