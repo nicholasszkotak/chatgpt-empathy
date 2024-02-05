@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace chatgpt_empathy.Controllers;
@@ -7,9 +6,9 @@ namespace chatgpt_empathy.Controllers;
 [Route("[controller]")]
 public class FileUploadController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<FileUploadController> _logger;
 
-    public FileUploadController(ILogger<WeatherForecastController> logger)
+    public FileUploadController(ILogger<FileUploadController> logger)
     {
         _logger = logger;
     }
